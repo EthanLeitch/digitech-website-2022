@@ -1,0 +1,22 @@
+{
+  "name": "digitech-website-2022",
+  "version": "1.0.0",
+  "description": "Digitech website project for 2022",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EthanLeitch/digitech-website-2022.git"
+  },
+  "author": "Ethan Leitch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EthanLeitch/digitech-website-2022/issues"
+  },
+  "homepage": "https://github.com/EthanLeitch/digitech-website-2022#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
