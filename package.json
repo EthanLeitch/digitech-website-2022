@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/EthanLeitch/digitech-website-2022#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "mysql": "^2.18.1"
   }
 }
