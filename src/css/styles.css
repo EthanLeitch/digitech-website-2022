@@ -6,9 +6,8 @@
     --orange: #FE5F55;
 }
 
-.btn {
-    background-color: var(--orange);
-    border-color: var(--orange);
+.btn-primary {
+    background-color: #FE5F55 !important;
 }
 
 body {

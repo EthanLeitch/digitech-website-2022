@@ -1,0 +1,10 @@
+/* custom.scss */    
+
+/* -------begin customization-------- */   
+
+$primary: #ff0000;
+
+/* -------end customization-------- */  
+
+/* finally, import Bootstrap to set the changes! */
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
