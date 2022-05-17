@@ -1,0 +1,16 @@
+:root {
+    --black: #495867;
+    --blue: #577399;
+    --light-blue: #BDD5EA;
+    --white: #F7F7FF;
+    --orange: #FE5F55;
+}
+
+.btn {
+    background-color: var(--orange);
+    border-color: var(--orange);
+}
+
+body {
+    background-color: #FE5F55;
+}

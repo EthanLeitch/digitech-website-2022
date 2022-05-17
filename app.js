@@ -24,6 +24,7 @@ app.get('*', function(req, res){
 });*/
 
 app.use(express.static('src/html'));
+
 app.get('*', function(req, res){
   // res.send('404 Page not found', 404);
   res.sendFile(path.join(__dirname, 'src/html/404.html'))
