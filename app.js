@@ -23,7 +23,7 @@ app.get('*', function(req, res){
   res.sendFile(path.join(__dirname, 'src/html/404.html'))
 });*/
 
-app.use(express.static('src/html'));
+app.use(express.static('src'));
 
 app.get('*', function(req, res){
   // res.send('404 Page not found', 404);
