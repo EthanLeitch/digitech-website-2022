@@ -3,6 +3,10 @@
 /*.btn-outline-success {
     @include button-variant($orange);
 }*/
+.rounded-pill {
+  border-radius: 25rem;
+}
+
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

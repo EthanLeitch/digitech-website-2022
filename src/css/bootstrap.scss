@@ -18,4 +18,8 @@ $theme-colors: (
     "success": $orange,
 );
 
+.rounded-pill {
+    border-radius: 25rem;
+}
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
