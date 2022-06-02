@@ -1,53 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Custom bootstrap styles -->
-		<link rel="stylesheet" href="../css/styles.css">
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="../css/styles.css">
 
-		<title>Map</title>
-	</head>
+	<!-- Leaflet map styles -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+	integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+	crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+	integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+	crossorigin=""></script>
 
-	<body>
-		<!-- Navbar -->
-		<nav>
+	<title>Map</title>
+</head>
 
-			<div class="navigation-bar">
-				<ul>
-					<li>
-						<a href="index.html">Map</a>
-					</li>
-					<li>
-						<a href="guide.html">Guide</a>
-					</li>
+<body>
 
-					<li>
-						<a href="about.html">About</a>
-					</li>
-					<li>
-						<a href="licensing.html">Licensing</a>
-					</li>
-					
-					<button type="submit">Sign In</button>
+	<!-- Navbar -->
+	<nav>
+		<div class="navigation-bar">
+			<ul>
+				<li>
+					<a href="index.html">Map</a>
+				</li>
+				<li>
+					<a href="guide.html">Guide</a>
+				</li>
+
+				<li>
+					<a href="about.html">About</a>
+				</li>
+				<li>
+					<a href="licensing.html">Licensing</a>
+				</li>
+				
+				<button type="submit">Sign In</button>
 
 
-				</ul>
-			</div>
-			
-			
-		</nav>
-		
-		<form>
-			<input class="form-control border rounded-pill" type="search" placeholder="Search for classroom number or name..." aria-label="Search">
-		</form>
-		
-		<br>
+			</ul>
+		</div>
+	</nav>
+	
+	<form>
+		<input type="search" placeholder="Search for classroom number or name...">
+	</form>
+	
+	<br>
 
-		<div id="map" style="width: 1400px; height: 400px;"></div>
-        <script src="../javascript/map.js"></script>
+	<div id="map" style="width: 900px; height: 580px;"></div>
+	<script src="../javascript/map.js"></script>
 
-	</body>
+</body>
 </html>
