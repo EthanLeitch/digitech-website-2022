@@ -1,7 +1,7 @@
 const express = require("express")
-const path = require('path')
+const path = require("path")
 
-var mysql = require('mysql');
+var mysql = require("mysql");
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -31,7 +31,7 @@ app.get('*', function(req, res){
 });
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/html/index.html`);
   // console.log(module);
 });
 

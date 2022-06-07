@@ -2,7 +2,7 @@
 
 // Creating map options
 var mapOptions = {
-center: [-45.85518, 170.49800],
+center: [-45.85518, 170.49800], 
 zoom: 18
 }
 
@@ -29,7 +29,6 @@ map.locate({setView: true, watch: true}) // This will return map so you can do c
         gpsMarker = L.marker(e.latlng).bindPopup("<b>You are here</b>");
         map.addLayer(gpsMarker);
     } else {
-        //alert("gwa gwa");  
         gpsMarker.setLatLng(e.latlng);
     }
 
