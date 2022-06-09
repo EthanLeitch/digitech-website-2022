@@ -10,6 +10,13 @@ const port = 3000;
 
 const app = express();
 
+let connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'todoapp'
+});
+
 
 
 /*app.get("/", (req, res) => {

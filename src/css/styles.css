@@ -4,6 +4,7 @@
     --middle-blue: #BDD5EA;
     --text-color: #F7F7FF;
     --highlight-color: #FE5F55;
+    --disabled-color: rgb(175, 175, 175);
 }
 
 :root[data-theme="light"] {
@@ -12,6 +13,7 @@
     --middle-blue: #BDD5EA;
     --text-color: #495867;
     --highlight-color: #FE5F55;
+    --disabled-color: #ccc;
 }
 
 body {
@@ -24,11 +26,17 @@ a {
     color: var(--text-color);
 }
 
-button {
+#button {
     background-color: var(--highlight-color);
     border: none;
     border-radius: 10px;
     padding: 15px;
+    float: right;
+}
+
+#button a {
+    text-decoration: none;
+    color: #F7F7FF;
 }
 
 /* Navigation Bar */
@@ -59,8 +67,13 @@ button {
     text-decoration: none;
 }
 
-.navigation-bar button {
-    float: right;
+
+.navigation-bar .underline:hover {
+    text-decoration: underline;
+}
+
+.navigation-bar .active {
+    color: var(--disabled-color);
 }
 
 input {
@@ -96,7 +109,7 @@ input {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--middle-blue);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -115,10 +128,6 @@ input {
 
 input:checked + .slider {
     background-color: var(--highlight-color);
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px var(--highlight-color);
 }
 
 input:checked + .slider:before {
