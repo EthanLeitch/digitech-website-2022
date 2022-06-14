@@ -8,7 +8,7 @@ const port = 3000;
 
 const app = express();
 
-let connection = mysql.createConnection({
+/*let connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'password',
@@ -17,10 +17,15 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
-});
+  console.log("Connected to MySQL classroom_db database!");
 
-connection.end();
+  connection.query("SELECT RoomNumber, Latitude, Longitude FROM classrooms", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});*/
+
+//connection.end();
 
 /*app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'src/html/index.html'))
