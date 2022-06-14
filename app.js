@@ -6,18 +6,21 @@ var mysql = require("mysql");
 const hostname = '127.0.0.1';
 const port = 3000;
 
-
-
 const app = express();
 
 let connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'classrooms'
+  password: 'password',
+  database: 'classroom_db'
 });
 
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
+connection.end();
 
 /*app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'src/html/index.html'))

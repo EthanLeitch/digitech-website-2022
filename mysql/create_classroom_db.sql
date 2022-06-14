@@ -1,5 +1,8 @@
+-- usage: source path/to/script.sql
 CREATE DATABASE classroom_db;
-CREATE TABLE classrooms (
+USE classroom_db;
+CREATE TABLE classrooms 
+(
     RoomNumber int NOT NULL,
-    Coordinates POINT NOT NULL,
+    Coordinates POINT NOT NULL
 );
