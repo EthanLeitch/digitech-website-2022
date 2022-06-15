@@ -1,7 +1,8 @@
 const express = require("express")
 const path = require("path")
 
-var mysql = require("mysql");
+// var mysql = require("mysql");
+const { Sequelize } = require('sequelize');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -25,28 +26,32 @@ connection.connect(function(err) {
   });
 });*/
 
-//connection.end();
-
-/*app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/html/index.html'))
+const sequelize = new Sequelize('mysql', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'mysql'/* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
 });
 
+const AdminJS = require('adminjs')
+const AdminJSExpress = require('@adminjs/express')
 
+const adminJs = new AdminJS({
+  databases: [],
+  rootPath: '/admin',
+})
 
-app.get('*', function(req, res){
-  // res.send('404 Page not found', 404);
-  res.sendFile(path.join(__dirname, 'src/html/404.html'))
-});*/
+const router = AdminJSExpress.buildRouter(adminJs)
 
 app.use(express.static('src'));
+app.use(adminJs.options.rootPath, router);
 
 app.get('*', function(req, res){
   // res.send('404 Page not found', 404);
-  res.sendFile(path.join(__dirname, 'src/html/404.html'))
+  res.sendFile(path.join(__dirname, 'src/404.html'))
 });
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/html/index.html`);
+  console.log(`Server running at http://${hostname}:${port}/index.html`);
+  console.log(`AdminJS panel is at http://${hostname}:${port}/admin`);
   // console.log(module);
 });
 
