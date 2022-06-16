@@ -1,8 +1,6 @@
 const express = require("express")
 const path = require("path")
 
-// var mysql = require("mysql");
-const { Sequelize } = require('sequelize');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -26,23 +24,79 @@ connection.connect(function(err) {
   });
 });*/
 
-const sequelize = new Sequelize('mysql', 'root', 'password', {
+// import sequelize
+const { Sequelize, DataTypes } = require('sequelize');
+
+// Load sequelize
+const sequelize = new Sequelize('classroom_db', 'root', 'password', {
   host: 'localhost',
-  dialect: 'mysql'/* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+  dialect: 'mysql',
+  dialectOptions: {
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'classroom_db',
+  }
 });
 
 const AdminJS = require('adminjs')
 const AdminJSExpress = require('@adminjs/express')
+//AdminJS.registerAdapter(AdminJSExpress)
 
-const adminJs = new AdminJS({
+// Setup sequelize model
+/*const Classrooms = sequelize.define('classrooms', {
+  // Model attributes are defined here
+  RoomNumber: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  Latitude: {
+    type: DataTypes.DECIMAL
+  },
+  Longitude: {
+    type: DataTypes.DECIMAL
+  }
+});*/
+
+async function myfunction(){
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+    sequelize.close();
+  }
+}
+
+function start() {
+  return myfunction();
+}
+
+// Call start
+(async() => {
+  console.log('Checking mysql authentication');
+
+  await start();
+  
+})();
+
+
+// `sequelize.define` also returns the model
+// console.log(Classrooms === sequelize.models.Classrooms); // true
+
+
+
+
+
+/*const adminJs = new AdminJS({
   databases: [],
   rootPath: '/admin',
 })
 
-const router = AdminJSExpress.buildRouter(adminJs)
+const router = AdminJSExpress.buildRouter(adminJs)*/
 
 app.use(express.static('src'));
-app.use(adminJs.options.rootPath, router);
+//app.use(adminJs.options.rootPath, router);
 
 app.get('*', function(req, res){
   // res.send('404 Page not found', 404);
