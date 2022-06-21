@@ -24,11 +24,10 @@ connection.connect(function(err) {
   });
 });*/
 
-// import sequelize
-const { Sequelize, DataTypes } = require('sequelize');
+
 
 // Load sequelize
-const sequelize = new Sequelize({
+/*const sequelize = new Sequelize({
   dialect: 'mysql',
   dialectOptions: {
     host: 'localhost',
@@ -36,14 +35,23 @@ const sequelize = new Sequelize({
     password: 'password',
     database: 'classroom_db',
   }
-});
+});*/
+
 
 const AdminJS = require('adminjs')
 const AdminJSExpress = require('@adminjs/express')
+// import sequelize
+const { Sequelize, DataTypes } = require('sequelize');
 //AdminJS.registerAdapter(AdminJSExpress)
 
+const sequelize = new Sequelize("classroom_db", "root", "password", {
+  host: '127.0.0.1',
+  dialect: 'mysql'
+  //operatorsAliases: false
+});
+/*
 // Setup sequelize model
-/*const Classrooms = sequelize.define('classrooms', {
+const Classrooms = sequelize.define('classrooms', {
   // Model attributes are defined here
   RoomNumber: {
     type: DataTypes.INTEGER,
@@ -60,7 +68,7 @@ const AdminJSExpress = require('@adminjs/express')
 async function myfunction(){
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    console.log('Connection has been established successfully to classroom database.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
     sequelize.close();
@@ -81,21 +89,21 @@ function start() {
 
 
 // `sequelize.define` also returns the model
-// console.log(Classrooms === sequelize.models.Classrooms); // true
+//console.log('Classrooms model created:', Classrooms === sequelize.models.Classrooms); // true
 
 
 
 
 
-/*const adminJs = new AdminJS({
+const adminJs = new AdminJS({
   databases: [],
   rootPath: '/admin',
-})
+});
 
-const router = AdminJSExpress.buildRouter(adminJs)*/
+const router = AdminJSExpress.buildRouter(adminJs);
 
 app.use(express.static('src'));
-//app.use(adminJs.options.rootPath, router);
+app.use(adminJs.options.rootPath, router);
 
 app.get('*', function(req, res){
   // res.send('404 Page not found', 404);
@@ -107,4 +115,3 @@ app.listen(port, hostname, () => {
   console.log(`AdminJS panel is at http://${hostname}:${port}/admin`);
   // console.log(module);
 });
-
