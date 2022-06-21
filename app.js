@@ -28,8 +28,7 @@ connection.connect(function(err) {
 const { Sequelize, DataTypes } = require('sequelize');
 
 // Load sequelize
-const sequelize = new Sequelize('classroom_db', 'root', 'password', {
-  host: 'localhost',
+const sequelize = new Sequelize({
   dialect: 'mysql',
   dialectOptions: {
     host: 'localhost',
