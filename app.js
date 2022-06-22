@@ -26,29 +26,19 @@ connection.connect(function(err) {
 
 
 
-// Load sequelize
-/*const sequelize = new Sequelize({
-  dialect: 'mysql',
-  dialectOptions: {
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'classroom_db',
-  }
-});*/
-
-
 const AdminJS = require('adminjs')
 const AdminJSExpress = require('@adminjs/express')
+const AdminJSSequelize = require('@adminjs/sequelize')
 // import sequelize
-const { Sequelize, DataTypes } = require('sequelize');
-//AdminJS.registerAdapter(AdminJSExpress)
-
+const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize("classroom_db", "root", "password", {
   host: '127.0.0.1',
   dialect: 'mysql'
-  //operatorsAliases: false
 });
+
+//AdminJS.registerAdapter(AdminJSExpress)
+AdminJS.registerAdapter(AdminJSSequelize)
+
 /*
 // Setup sequelize model
 const Classrooms = sequelize.define('classrooms', {
