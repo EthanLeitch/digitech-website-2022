@@ -36,7 +36,13 @@ const sequelize = new Sequelize("classroom_db", "root", "password", {
   dialect: 'mysql'
 });
 
-//AdminJS.registerAdapter(AdminJSExpress)
+
+const adminJs = new AdminJS({
+  databases: [sequelize],
+  rootPath: '/admin',
+});
+
+AdminJS.registerAdapter(AdminJSExpress)
 AdminJS.registerAdapter(AdminJSSequelize)
 
 /*
@@ -84,11 +90,6 @@ function start() {
 
 
 
-
-const adminJs = new AdminJS({
-  databases: [],
-  rootPath: '/admin',
-});
 
 const router = AdminJSExpress.buildRouter(adminJs);
 
