@@ -1,7 +1,6 @@
 const express = require("express")
 const path = require("path")
 
-
 const hostname = '127.0.0.1';
 const port = 3000;
 
@@ -24,28 +23,16 @@ connection.connect(function(err) {
   });
 });*/
 
-
-
 const AdminJS = require('adminjs')
 const AdminJSExpress = require('@adminjs/express')
 const AdminJSSequelize = require('@adminjs/sequelize')
-// import sequelize
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+
 const sequelize = new Sequelize("classroom_db", "root", "password", {
   host: '127.0.0.1',
   dialect: 'mysql'
 });
 
-
-const adminJs = new AdminJS({
-  databases: [sequelize],
-  rootPath: '/admin',
-});
-
-AdminJS.registerAdapter(AdminJSExpress)
-AdminJS.registerAdapter(AdminJSSequelize)
-
-/*
 // Setup sequelize model
 const Classrooms = sequelize.define('classrooms', {
   // Model attributes are defined here
@@ -59,7 +46,19 @@ const Classrooms = sequelize.define('classrooms', {
   Longitude: {
     type: DataTypes.DECIMAL
   }
-});*/
+});
+
+const db = require('../models');
+const adminJs = new AdminJS({
+  databases: [db],
+  rootPath: '/admin',
+});
+
+AdminJS.registerAdapter(AdminJSExpress)
+AdminJS.registerAdapter(AdminJSSequelize)
+
+
+
 
 async function myfunction(){
   try {
@@ -83,13 +82,8 @@ function start() {
   
 })();
 
-
 // `sequelize.define` also returns the model
-//console.log('Classrooms model created:', Classrooms === sequelize.models.Classrooms); // true
-
-
-
-
+console.log('Classrooms model created:', Classrooms === sequelize.models.Classrooms); // true
 
 const router = AdminJSExpress.buildRouter(adminJs);
 

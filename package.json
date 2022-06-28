@@ -20,7 +20,6 @@
     "@adminjs/express": "^4.1.3",
     "@adminjs/sequelize": "^2.1.5",
     "adminjs": "^5.10.4",
-    "bcrypt": "^5.0.1",
     "express": "^4.18.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
