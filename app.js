@@ -48,7 +48,7 @@ const Classrooms = sequelize.define('classrooms', {
   }
 });
 
-const db = require('../models');
+const db = require('./models');
 const adminJs = new AdminJS({
   databases: [db],
   rootPath: '/admin',
