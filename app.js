@@ -6,6 +6,8 @@ const port = 3000;
 
 const app = express();
 
+const { exec } = require("child_process");
+
 /*let connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -33,7 +35,7 @@ const sequelize = new Sequelize("classroom_db", "root", "password", {
   dialect: 'mysql'
 });
 
-// Setup sequelize model
+/*// Setup sequelize model
 const Classrooms = sequelize.define('classrooms', {
   // Model attributes are defined here
   RoomNumber: {
@@ -41,20 +43,20 @@ const Classrooms = sequelize.define('classrooms', {
     allowNull: false
   },
   Latitude: {
-    type: DataTypes.DECIMAL
+    type: DataTypes.DECIMAL(8, 6)
   },
   Longitude: {
-    type: DataTypes.DECIMAL
+    type: DataTypes.DECIMAL(9, 6)
   }
-});
+});*/
 
-const db = require('./models');
+const db = require('./models/classroom.js');
 const adminJs = new AdminJS({
   databases: [db],
   rootPath: '/admin',
 });
 
-AdminJS.registerAdapter(AdminJSExpress)
+//AdminJS.registerAdapter(AdminJSExpress)
 AdminJS.registerAdapter(AdminJSSequelize)
 
 
@@ -76,7 +78,19 @@ function start() {
 
 // Call start
 (async() => {
-  console.log('Checking mysql authentication');
+
+  // Start mysql server via exec
+  exec("mysql.server start", (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 
   await start();
   
