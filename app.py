@@ -1,9 +1,15 @@
 # import the Flask class from the flask module
 from flask import Flask, render_template
+
+# sql stuff
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 # create the application object
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/classroom_db'
 
 db = SQLAlchemy(app)
@@ -12,14 +18,14 @@ db = SQLAlchemy(app)
 class classrooms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     room_number = db.Column(db.Integer, nullable=False)
-    latitude = db.Column(db.DECIMAL(8, 6))
-    longitude = db.Column(db.DECIMAL(9, 6))
+    latitude = db.Column(db.DECIMAL(8, 6), nullable=False)
+    longitude = db.Column(db.DECIMAL(9, 6), nullable=False)
 
-    def __repr__(self):
-        return '<User %r>' % self.room_number
+# Initialise admin panel
+admin = Admin(app, name='admin panel', template_mode='bootstrap3')
+admin.add_view(ModelView(classrooms, db.session))
 
-
-# use decorators to link the function to a url
+# Pages
 @app.route('/')
 def home():
     return render_template('index.j2') 
