@@ -22,6 +22,9 @@ marker.bindPopup("<b>John McGlashan College</b><br>I am a popup.");
 
 var gpsMarker = null;
 
+$.get("/getpythondata", function(data) {
+    alert($.parseJSON(data));
+})
 
 map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){

@@ -1,16 +1,25 @@
-# import the Flask class from the flask module
+# Import framework
 from flask import Flask, render_template
 
-# sql stuff
+# SQL management
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+import json
 
-# create the application object
+# Security stuff
+import secrets
+
+# Create the application object
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'supersecretkey'
+# Generate secure key for session
+secret_key = secrets.token_hex()
+app.config['SECRET_KEY'] = secret_key
+
+# Configure SQLAlchemy options
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/classroom_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
@@ -18,6 +27,7 @@ db = SQLAlchemy(app)
 class classrooms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     room_number = db.Column(db.Integer, nullable=False)
+    # room_name = db.Column(db.String, nullable=True)
     latitude = db.Column(db.DECIMAL(8, 6), nullable=False)
     longitude = db.Column(db.DECIMAL(9, 6), nullable=False)
 
@@ -25,9 +35,18 @@ class classrooms(db.Model):
 admin = Admin(app, name='admin panel', template_mode='bootstrap3')
 admin.add_view(ModelView(classrooms, db.session))
 
+pythondata = ["foo", "bar"]
+
+@app.route('/getpythondata')
+def get_python_data():
+    # classrooms.query.all()
+    return json.dumps(pythondata)
+
 # Pages
 @app.route('/')
 def home():
+    # classes = classrooms.query.all()
+    # classes=classes
     return render_template('index.j2') 
 
 @app.route('/guide.html')
@@ -44,10 +63,10 @@ def licensing():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
+    # Note that we set the 404 status explicitly
     return render_template('404.j2'), 404
 
-# start the server with the 'run()' method
+# Start the server with the 'run()' method
 if __name__ == '__main__':
     app.run(debug=True)
     
