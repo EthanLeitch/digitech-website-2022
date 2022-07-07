@@ -1,10 +1,13 @@
 # Import framework
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 # SQL management
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+
+# SQL serialising
+from flask_marshmallow import Marshmallow 
 import json
 
 # Security stuff
@@ -22,30 +25,41 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/classro
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 # Create database model
-class classrooms(db.Model):
+class Classroom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     room_number = db.Column(db.Integer, nullable=False)
     # room_name = db.Column(db.String, nullable=True)
     latitude = db.Column(db.DECIMAL(8, 6), nullable=False)
     longitude = db.Column(db.DECIMAL(9, 6), nullable=False)
 
+class ClassroomSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Classroom
+        load_instance = True
+
 # Initialise admin panel
 admin = Admin(app, name='admin panel', template_mode='bootstrap3')
-admin.add_view(ModelView(classrooms, db.session))
+admin.add_view(ModelView(Classroom, db.session))
 
 pythondata = ["foo", "bar"]
 
 @app.route('/getpythondata')
 def get_python_data():
-    # classrooms.query.all()
-    return json.dumps(pythondata)
+    # Classroom.query.all()
+    # return Classroom.as_dict(Classrooms);
+    classrooms = Classroom.query.all()
+    classroom_schema = ClassroomSchema(many=True)
+    output = classroom_schema.dump(classrooms)
+    return jsonify({'classroom' : output})
+    #return json.dumps(pythondata)
 
 # Pages
 @app.route('/')
 def home():
-    # classes = classrooms.query.all()
+    # classes = Classroom.query.all()
     # classes=classes
     return render_template('index.j2') 
 

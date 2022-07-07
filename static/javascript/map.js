@@ -22,9 +22,19 @@ marker.bindPopup("<b>John McGlashan College</b><br>I am a popup.");
 
 var gpsMarker = null;
 
-$.get("/getpythondata", function(data) {
+/*$.get("/getpythondata", function(data) {
     alert($.parseJSON(data));
+})*/
+$.getJSON("/getpythondata", function(data) {
+    alert($.parseJSON(data.classroom(1)));
 })
+
+/*$.getJSON("demo_ajax_json.js", function(result){
+	$.each(result, function(i, field){
+	  $("div").append(field + " ");
+	});
+});
+*/
 
 map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
