@@ -30,10 +30,11 @@ ma = Marshmallow(app)
 # Create database model
 class Classroom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    room_number = db.Column(db.Integer, nullable=False)
-    # room_name = db.Column(db.String, nullable=True)
+    room_name = db.Column(db.String(50), nullable=False)
+    room_description = db.Column(db.String(280), nullable=True)
     latitude = db.Column(db.DECIMAL(8, 6), nullable=False)
     longitude = db.Column(db.DECIMAL(9, 6), nullable=False)
+
 
 class ClassroomSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -41,26 +42,19 @@ class ClassroomSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
 
 # Initialise admin panel
-admin = Admin(app, name='admin panel', template_mode='bootstrap3')
+admin = Admin(app, name='Admin Panel', template_mode='bootstrap3')
 admin.add_view(ModelView(Classroom, db.session))
-
-pythondata = ["foo", "bar"]
 
 @app.route('/getpythondata')
 def get_python_data():
-    # Classroom.query.all()
-    # return Classroom.as_dict(Classrooms);
     classrooms = Classroom.query.all()
     classroom_schema = ClassroomSchema(many=True)
     output = classroom_schema.dump(classrooms)
     return jsonify({'classroom' : output})
-    #return json.dumps(pythondata)
 
 # Pages
 @app.route('/')
 def home():
-    # classes = Classroom.query.all()
-    # classes=classes
     return render_template('index.j2') 
 
 @app.route('/guide.html')

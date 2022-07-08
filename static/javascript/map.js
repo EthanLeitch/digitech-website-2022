@@ -16,25 +16,28 @@ var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 // Adding layer to the map
 map.addLayer(layer);
 
-// Adding a marker to the map
+/* Adding a marker to the map
 var marker = L.marker([-45.85518, 170.49800]).addTo(map);
-marker.bindPopup("<b>John McGlashan College</b><br>I am a popup.");
+marker.bindPopup("<b>John McGlashan College</b><br>I am a popup."); */
 
 var gpsMarker = null;
 
-/*$.get("/getpythondata", function(data) {
-    alert($.parseJSON(data));
-})*/
 $.getJSON("/getpythondata", function(data) {
-    alert($.parseJSON(data.classroom(1)));
-})
+    // alert(JSON.stringify(data.classrooms));
+	var classroomData = data.classroom;
+	
+	for (var key in classroomData) {
+		if (classroomData.hasOwnProperty(key)) {
+			// console.log(key + " -> " + JSON.stringify(classroomData[key]));
+			// console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
 
-/*$.getJSON("demo_ajax_json.js", function(result){
-	$.each(result, function(i, field){
-	  $("div").append(field + " ");
-	});
-});
-*/
+			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
+			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
+			.addTo(map);
+
+		}
+	}
+})
 
 map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
@@ -57,5 +60,4 @@ map.locate({setView: true, watch: true}) // This will return map so you can do c
 })
 .on('locationerror', function(e){
 	console.log(e);
-	//alert("ERROR: Location access denied. Please allow location access to display current position.");
 });
