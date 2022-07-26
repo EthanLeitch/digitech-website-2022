@@ -14,6 +14,16 @@
 	<a class="underline" href="about.html">About</a>
 </li>
 <li>
-	<a class="active">Licensing</a>
+	<a class="underline" href="licensing.j2">Licensing</a>
 </li>
+{% endblock %}
+
+{% block body %}
+<form method="POST">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username" value="John" required><br>
+  <label for="password">Password:</label><br>
+  <input type="text" id="password" name="password" value="Doe" required><br><br>
+  <input type="submit" value="Submit">
+</form> 
 {% endblock %}
