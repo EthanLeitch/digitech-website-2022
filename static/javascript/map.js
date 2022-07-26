@@ -39,7 +39,7 @@ $.getJSON("/getpythondata", function(data) {
 	}
 })
 
-map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
+/*map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
     if(gpsMarker == null) {
         gpsMarker = L.marker(e.latlng).bindPopup("<b>You are here</b>");
@@ -56,8 +56,8 @@ map.locate({setView: true, watch: true}) // This will return map so you can do c
 		fillOpacity: 0.2
 	});*/
 	//map.addLayer(marker);
-	/*map.addLayer(circle);*/
+	/*map.addLayer(circle);
 })
 .on('locationerror', function(e){
 	console.log(e);
-});
+});*/
