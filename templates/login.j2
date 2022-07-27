@@ -20,10 +20,11 @@
 
 {% block body %}
 <form method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" id="username" name="username" value="John" required><br>
-  <label for="password">Password:</label><br>
-  <input type="text" id="password" name="password" value="Doe" required><br><br>
-  <input type="submit" value="Submit">
+	<input type="text" id="username" name="username" placeholder="Username" required><br>
+	<input type="password" id="password" name="password" placeholder="Password" required><br><br>
+	<input type="submit" value="Submit">
+	{% if failed == True %}
+	<p style="color: red;">Incorrect username or password!</p>
+	{% endif %}
 </form> 
 {% endblock %}

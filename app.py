@@ -1,6 +1,6 @@
 # Import framework
-from requests import session
-from flask import Flask, render_template, jsonify, session, redirect, abort
+from requests import request, session
+from flask import Flask, render_template, jsonify, session, redirect, abort, request
 
 # SQL management
 import os
@@ -81,10 +81,15 @@ def about():
 def licensing():
     return render_template('licensing.j2') 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    #session['logged_in'] = True
-    #return redirect("/admin")
+    if request.method == "POST":
+        if request.form.get("username") == "admin" and request.form.get("password") == "password":
+            session['logged_in'] = True
+            return redirect("/admin")
+        else:
+            return render_template("login.j2", failed=True)
+    
     return render_template("login.j2")
 
 @app.route('/logout')
