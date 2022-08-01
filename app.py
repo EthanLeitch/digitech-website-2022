@@ -54,7 +54,7 @@ class SecureModelView(ModelView):
             abort(403)
 
 # Initialise admin panel
-admin = Admin(app, name='Admin Panel', base_template='admin-panel/layout.j2', template_mode='bootstrap3')
+admin = Admin(app, name='Admin Panel', template_mode='bootstrap3')
 admin.add_view(SecureModelView(Classroom, db.session))
 
 @app.route('/getpythondata')
