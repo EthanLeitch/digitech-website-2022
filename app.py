@@ -15,8 +15,9 @@ import json
 # Security stuff
 import secrets
 
-# Attempt to start MySQL via console 
-os.system("mysql.server start")
+from dotenv import dotenv_values
+config = dotenv_values(".env")
+print(config)
 
 # Create the application object
 app = Flask(__name__)

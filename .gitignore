@@ -1,7 +1,12 @@
-# gitignore
-.DS_Store
+# .gitignore
 
+# Cache files 
+.DS_Store
 venv/
 __pycache__/
 
+# Secrets
+.env
+
+# Other
 commands.sh
