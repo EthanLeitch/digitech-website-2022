@@ -1,7 +1,7 @@
 from passlib.hash import bcrypt
 from getpass import getpass
 
-# Load dotenv file 
+# Load .env file 
 import dotenv 
 from dotenv import dotenv_values
 config = dotenv_values(".env")
@@ -9,12 +9,7 @@ config = dotenv_values(".env")
 # Read value from dotenv file
 # print(config["KEY"])
 
-# print(bcrypt.setting_kwds)
-# ('salt', 'rounds', 'ident', 'truncate_error')
-# print(bcrypt.default_rounds)
-# 12
-
-hasher = bcrypt.using(rounds=14)  # Make bcrypt take longer (more secure)
+hasher = bcrypt.using(rounds=14) # Change default round number to be longer (more secure)
 
 def main():
     print("Welcome to the setup program for the digitech-website-2022 app.")
@@ -25,12 +20,14 @@ def main():
     4. Quit""")
     choice = input(" > ")
 
+    # TODO: This looks bad, but it works. Maybe clean this up eventually.
     if choice == "4":
         exit()
 
     if choice == "1" or choice == "2":
-        print("Enter MySQL username and password")
+        print("Enter MySQL username and password. NOTE: This will not be encrypted.")
         set_user_and_pass("MYSQL")
+        
         if choice == "2":
             exit()
     
@@ -42,18 +39,16 @@ def set_user_and_pass(option):
     username = input("Username: ")
     password = getpass()
 
-    hashed_password = hasher.hash(password)
-    # $2b$13$H9.qdcodBFCYOWDVMrjx/uT.fbKzYloMYD7Hj2ItDmEOnX5lw.BX.
-    # \__/\/ \____________________/\_____________________________/
-    # Alg Rounds  Salt (22 char)            Hash (31 char)
+    # Only webapp password can be encrypted.
+    if option == "WEBAPP":        
+        password = hasher.hash(password)
+        # $2b$13$H9.qdcodBFCYOWDVMrjx/uT.fbKzYloMYD7Hj2ItDmEOnX5lw.BX.
+        # \__/\/ \____________________/\_____________________________/
+        # Alg Rounds  Salt (22 char)            Hash (31 char)
 
     dotenv.set_key(".env", option + "_USERNAME", username)
-    dotenv.set_key(".env", option + "_PASSWORD", hashed_password)
+    dotenv.set_key(".env", option + "_PASSWORD", password)
 
-    # print(hasher.verify(password, hashed_password))
-    # True
-    # print(hasher.verify("not-the-password", hashed_password))
-    # False
-    
+
 if __name__ == '__main__':
     main()

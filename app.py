@@ -14,10 +14,19 @@ import json
 
 # Security stuff
 import secrets
+from passlib.hash import bcrypt
+from getpass import getpass
 
+hasher = bcrypt.using(rounds=14) # Make bcrypt take longer (more secure)
+
+# Load .env values
 from dotenv import dotenv_values
 config = dotenv_values(".env")
-print(config)
+
+# Error checking
+if not config.keys() & {"MYSQL_USERNAME", "MYSQL_PASSWORD", "WEBAPP_USERNAME", "WEBAPP_PASSWORD"}:
+    print(".env values not found. Remember to run setup.py")
+    exit()
 
 # Create the application object
 app = Flask(__name__)
@@ -27,7 +36,7 @@ secret_key = secrets.token_hex()
 app.config['SECRET_KEY'] = secret_key
 
 # Configure SQLAlchemy options
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/classroom_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{config["MYSQL_USERNAME"]}:{config["MYSQL_PASSWORD"]}@localhost/classroom_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -41,6 +50,7 @@ class Classroom(db.Model):
     latitude = db.Column(db.DECIMAL(8, 6), nullable=False)
     longitude = db.Column(db.DECIMAL(9, 6), nullable=False)
 
+# This class is for serializing classroom_db to json 
 class ClassroomSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Classroom
@@ -52,6 +62,7 @@ class SecureModelView(ModelView):
         if "logged_in" in session:
             return True
         else:
+            # Return forbidden as session is not authenticated
             abort(403)
 
 # Initialise admin panel
@@ -85,10 +96,13 @@ def licensing():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
-        if request.form.get("username") == "admin" and request.form.get("password") == "password":
+        # Verify username by checking against config and verify password with bcrypt
+        if request.form.get("username") == config["WEBAPP_USERNAME"] and hasher.verify(request.form.get("password"), config["WEBAPP_PASSWORD"]):
+            # Correct username and password, redirect to admin panel
             session['logged_in'] = True
             return redirect("/admin")
         else:
+            # Incorrect username or password
             return render_template("login.j2", failed=True)
     
     return render_template("login.j2")
@@ -105,6 +119,7 @@ def page_not_found(e):
 
 # Start the server with the 'run()' method
 if __name__ == '__main__':
+        
     app.run(debug=True)
     
 

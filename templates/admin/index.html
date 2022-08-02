@@ -4,16 +4,7 @@
 <h2>Admin Panel</h2>
 <p>Welcome to the admin panel for the map interface.<br>
 Here you can create, read, update and delete entries to the databases.</p>
+<p><i>Currently, you can only change admin credentials from the backend by running setup.py. It will likely stay this way.</i></p>
 <button type="submit"><a href="/logout">Log Out</a></button>
 
-<h2>Change password</h2>
-<form method="POST">
-	<input type="password" id="currentPass" name="currentPass" placeholder="Current password" required><br><br>
-	<input type="password" id="newPass" name="newPass" placeholder="New password" required><br>
-    <input type="password" id="confirmNewPass" name="confirmNewPass" placeholder="Repeat new password" required><br><br>
-	<input type="submit" value="Submit">
-	{% if failed == True %}
-	<p style="color: red;">Incorrect password!</p>
-	{% endif %}
-</form> 
 {% endblock %}
