@@ -32,9 +32,13 @@
 {% endblock %}
 
 {% block body %}
-<form>
-	<input type="search" placeholder="Search for classroom number or name...">
-</form>
+<!-- <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> -->
+<input type="search" placeholder="Search for classroom number or name...">
+<div>
+	<ul class="dropdown">
+		<!-- This list is populated by jQuery on page load -->
+	</ul>
+</div>
 
 <br>
 		

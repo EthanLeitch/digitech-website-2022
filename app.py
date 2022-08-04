@@ -24,8 +24,8 @@ from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 # Error checking
-if not config.keys() & {"MYSQL_USERNAME", "MYSQL_PASSWORD", "WEBAPP_USERNAME", "WEBAPP_PASSWORD"}:
-    print(".env values not found. Remember to run setup.py")
+if not all(key in config.keys() for key in ("MYSQL_USERNAME", "MYSQL_PASSWORD", "WEBAPP_USERNAME", "WEBAPP_PASSWORD")): 
+    print("env values not found. Remember to run setup.py")
     exit()
 
 # Create the application object
@@ -119,7 +119,6 @@ def page_not_found(e):
 
 # Start the server with the 'run()' method
 if __name__ == '__main__':
-        
     app.run(debug=True)
     
 

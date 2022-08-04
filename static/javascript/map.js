@@ -28,12 +28,17 @@ $.getJSON("/getpythondata", function(data) {
 	
 	for (var key in classroomData) {
 		if (classroomData.hasOwnProperty(key)) {
+			// Debugging commands
 			// console.log(key + " -> " + JSON.stringify(classroomData[key]));
 			// console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
 
+			// Add locations as map markers 
 			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
 			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
 			.addTo(map);
+
+			// Add locations to search bar list  
+			$(".dropdown").append("<li><a href=\"\">" + classroomData[key].room_name + "</a></li>");
 
 		}
 	}
