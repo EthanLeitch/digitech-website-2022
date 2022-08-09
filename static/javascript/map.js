@@ -13,29 +13,26 @@ var map = new L.map('map', mapOptions);
 var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 // COPYRIGHT: https://www.openstreetmap.org/copyright
 
-// Adding layer to the map
+// Add the layer to the map
 map.addLayer(layer);
-
-/* Adding a marker to the map
-var marker = L.marker([-45.85518, 170.49800]).addTo(map);
-marker.bindPopup("<b>John McGlashan College</b><br>I am a popup."); */
 
 var gpsMarker = null;
 
 function searchFunction() {
 	// Declare variables
 	var input, filter, ul, li, a, i, txtValue;
-	input = document.getElementById('myInput');
+	input = document.getElementById("myInput");
 	filter = input.value.toUpperCase();
 	ul = document.getElementById("myUL");
-	li = ul.getElementsByTagName('li');
+	li = ul.getElementsByTagName("li");
 
+	/* Only show list items once three characters have been typed in
 	if(input.value.length < 3) {
     	for (i = 0; i < li.length; i++) {
         	li[i].style.display = "";
 		}
         return;
-	}
+	} */
 
 	// Loop through all list items, and hide those who don't match the search query
 	for (i = 0; i < li.length; i++) {
@@ -49,11 +46,22 @@ function searchFunction() {
 	}
 }
 
-function toggleList() {
-	for (i = 0; i < li.length; i++) {
-		li[i].style.display = "none";
-	}
-}
+$(document).ready(function(){
+	// Set dropdown to hidden by default
+	$(".dropdown").hide(); 
+	
+	// Toggle dropdown visibility on focus 
+	$("#myInput").focus(function(){
+		if (!$("#myInput").val()) {
+			$(".dropdown").show();
+		}
+	});
+	$("#myInput").focusout(function(){
+		if (!$("#myInput").val()) {
+			$(".dropdown").hide();
+		}
+	});
+});
 
 $.getJSON("/getpythondata", function(data) {
     // alert(JSON.stringify(data.classrooms));
@@ -61,9 +69,10 @@ $.getJSON("/getpythondata", function(data) {
 	
 	for (var key in classroomData) {
 		if (classroomData.hasOwnProperty(key)) {
-			// Debugging commands
-			// console.log(key + " -> " + JSON.stringify(classroomData[key]));
-			// console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
+			/* Debugging commands
+			console.log(key + " -> " + JSON.stringify(classroomData[key]));
+			console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
+			*/
 
 			// Add locations as map markers 
 			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
@@ -77,7 +86,7 @@ $.getJSON("/getpythondata", function(data) {
 	}
 })
 
-/*map.locate({setView: true, watch: true}) // This will return map so you can do chaining 
+map.locate({setView: false, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
     if(gpsMarker == null) {
         gpsMarker = L.marker(e.latlng).bindPopup("<b>You are here</b>");
@@ -85,17 +94,6 @@ $.getJSON("/getpythondata", function(data) {
     } else {
         gpsMarker.setLatLng(e.latlng);
     }
-
-	//var marker = L.marker([e.latitude, e.longitude]).bindPopup('You are here');
-	/*var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
-		weight: 1,
-		color: 'blue',
-		fillColor: '#cacaca',
-		fillOpacity: 0.2
-	});*/
-	//map.addLayer(marker);
-	/*map.addLayer(circle);
-})
-.on('locationerror', function(e){
+}).on('locationerror', function(e){
 	console.log(e);
-});*/
+});
