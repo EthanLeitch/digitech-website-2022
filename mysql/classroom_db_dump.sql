@@ -16,29 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `classrooms`
+-- Table structure for table `classroom`
 --
 
-DROP TABLE IF EXISTS `classrooms`;
+DROP TABLE IF EXISTS `classroom`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `classrooms` (
+CREATE TABLE `classroom` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `room_number` int NOT NULL,
-  `latitude` decimal(8,6) DEFAULT NULL,
-  `longitude` decimal(9,6) DEFAULT NULL,
+  `room_name` varchar(50) NOT NULL,
+  `room_description` varchar(280) DEFAULT NULL,
+  `latitude` decimal(8,6) NOT NULL,
+  `longitude` decimal(9,6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `classrooms`
+-- Dumping data for table `classroom`
 --
 
-LOCK TABLES `classrooms` WRITE;
-/*!40000 ALTER TABLE `classrooms` DISABLE KEYS */;
-INSERT INTO `classrooms` VALUES (1,25,-45.855180,170.498000),(3,4,24.000000,24.000000);
-/*!40000 ALTER TABLE `classrooms` ENABLE KEYS */;
+LOCK TABLES `classroom` WRITE;
+/*!40000 ALTER TABLE `classroom` DISABLE KEYS */;
+INSERT INTO `classroom` VALUES (1,'Red House','Example description, HTML <i>formatting</i> is supported.',-45.855180,170.499000),(2,'Blue House',NULL,-45.855120,170.498008),(3,'Green House',NULL,-45.855680,170.498008);
+/*!40000 ALTER TABLE `classroom` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-06 12:29:22
+-- Dump completed on 2022-08-10 16:41:11
