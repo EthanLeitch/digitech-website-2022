@@ -27,3 +27,18 @@ mysql -u USERNAME -p classroom_db < mysql/classroom_db_dump.sql
 
 # Licensing
 The source code of this project (excluding external packages and software) is licensed under the GNU GPL v3.0 license.
+
+### External software used
+- [OpenStreetMap](https://www.openstreetmap.org/copyright)
+- [jQuery](https://jquery.org/license/)
+
+### External packages used 
+- [Flask](https://flask.palletsprojects.com/en/2.1.x/license/)
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/license/)
+- [Flask-Admin](https://github.com/flask-admin/flask-admin/blob/master/LICENSE)
+- [Flask-Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/license.html)
+- [FlaskWTF](https://flask-wtf.readthedocs.io/en/0.15.x/license/)
+- [requests](https://github.com/psf/requests/blob/main/LICENSE)
+- [passlib](https://passlib.readthedocs.io/en/stable/copyright.html)
+- [bcrypt](https://github.com/pyca/bcrypt/blob/main/LICENSE)
+- [dotenv](https://github.com/theskumar/python-dotenv/blob/master/LICENSE)

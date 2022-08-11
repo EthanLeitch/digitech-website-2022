@@ -78,7 +78,8 @@ $.getJSON("/getpythondata", function(data) {
 			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
 			.addTo(map);
 
-			// Add locations to search bar list  
+			// Add locations to search bar list
+			// TODO: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
 			$(".dropdown").append("<li><a onclick=\"map.flyTo([" + [classroomData[key].latitude, classroomData[key].longitude] + "], 18);\">" + classroomData[key].room_name + "</a></li>");
 
 		}

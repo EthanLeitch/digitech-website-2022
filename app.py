@@ -3,19 +3,17 @@ from requests import request, session
 from flask import Flask, render_template, jsonify, session, redirect, abort, request
 
 # SQL management
-import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
 # SQL serialising
 from flask_marshmallow import Marshmallow 
-import json
 
 # Security stuff
 import secrets
 from passlib.hash import bcrypt
-from getpass import getpass
+from flask_wtf.csrf import CSRFProtect
 
 hasher = bcrypt.using(rounds=14) # Make bcrypt take longer (more secure)
 
@@ -29,7 +27,9 @@ if not all(key in config.keys() for key in ("MYSQL_USERNAME", "MYSQL_PASSWORD", 
     exit()
 
 # Create the application object
+csrf = CSRFProtect()
 app = Flask(__name__)
+csrf.init_app(app)
 
 # Generate secure key for session
 secret_key = secrets.token_hex()
@@ -69,12 +69,20 @@ class SecureModelView(ModelView):
 admin = Admin(app, name='Admin Panel', template_mode='bootstrap3')
 admin.add_view(SecureModelView(Classroom, db.session))
 
+# Creates a page to serve database as json. This is then read by the map.js file.
 @app.route('/getpythondata')
 def get_python_data():
     classrooms = Classroom.query.all()
     classroom_schema = ClassroomSchema(many=True)
     output = classroom_schema.dump(classrooms)
     return jsonify({'classroom' : output})
+
+# Use more secure HTTP headers
+@app.after_request
+def apply_caching(response):
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["HTTP-HEADER"] = "VALUE"
+    return response
 
 # Pages
 @app.route('/')
