@@ -1,6 +1,6 @@
 # digitech-website-2022
 An interactive map of John McGlashan College, made for NCEA Web Design and Development Standards 91891, 91893 and 91897.
-<!-- Insert an image preview here when project is finished -->
+<!-- Insert an image preview here when project is finished -- # Features section? -->
 
 # Setup 
 ## Setting up MySQL 

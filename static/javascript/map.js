@@ -26,13 +26,13 @@ function searchFunction() {
 	ul = document.getElementById("myUL");
 	li = ul.getElementsByTagName("li");
 
-	/* Only show list items once three characters have been typed in
-	if(input.value.length < 3) {
+	/* // Only show list items once a character has been typed in
+	if(input.value.length < 2) {
     	for (i = 0; i < li.length; i++) {
         	li[i].style.display = "";
 		}
         return;
-	} */
+	} */ 
 
 	// Loop through all list items, and hide those who don't match the search query
 	for (i = 0; i < li.length; i++) {
@@ -56,15 +56,14 @@ $(document).ready(function(){
 			$(".dropdown").show();
 		}
 	});
-	$("#myInput").focusout(function(){
+	/*$("#myInput").focusout(function(){
 		if (!$("#myInput").val()) {
 			$(".dropdown").hide();
 		}
-	});
+	});*/
 });
 
 $.getJSON("/getpythondata", function(data) {
-    // alert(JSON.stringify(data.classrooms));
 	var classroomData = data.classroom;
 	
 	for (var key in classroomData) {
@@ -80,12 +79,13 @@ $.getJSON("/getpythondata", function(data) {
 			.addTo(map);
 
 			// Add locations to search bar list  
-			$(".dropdown").append("<li><a href=\"\">" + classroomData[key].room_name + "</a></li>");
+			$(".dropdown").append("<li><a onclick=\"map.flyTo([" + [classroomData[key].latitude, classroomData[key].longitude] + "], 18);\">" + classroomData[key].room_name + "</a></li>");
 
 		}
 	}
 })
 
+// Set current user location
 map.locate({setView: false, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
     if(gpsMarker == null) {
@@ -94,6 +94,7 @@ map.locate({setView: false, watch: true}) // This will return map so you can do 
     } else {
         gpsMarker.setLatLng(e.latlng);
     }
-}).on('locationerror', function(e){
+})
+.on('locationerror', function(e){
 	console.log(e);
 });

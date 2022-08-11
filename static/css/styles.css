@@ -31,6 +31,8 @@ body {
 
 a {
     color: var(--text-color);
+    /* This only exists for the dropdown search menu */
+    text-decoration: underline;
 }
 
 #button {
