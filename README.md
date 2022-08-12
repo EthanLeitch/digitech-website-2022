@@ -21,7 +21,7 @@ mysql -u USERNAME -p classroom_db < mysql/classroom_db_dump.sql
 ```
 
 ## Setting up the webapp
-1. Install all required packages with `pip install -r requirements.txt`. It is reccomended that you do this in a [virtual environment](https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/).
+1. Install all required packages with `pip install -r requirements.txt`. It is recommended that you do this in a [virtual environment](https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/).
 2. Run `setup.py` to set both the webapp username & password (for the admin panel), and the MySQL username & password that you set up in the first section.
 3. You can now run the webapp with `flask run`. Keep in mind that this is a development server, and you should not use it in a production deployment. For more information on deploying, read the [flask deployment instructions](https://flask.palletsprojects.com/en/2.2.x/deploying/).
 
