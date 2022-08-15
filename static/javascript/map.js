@@ -74,6 +74,11 @@ $.getJSON("/getpythondata", function(data) {
 			*/
 
 			// Add locations as map markers 
+			// Set room_description to empty string so null is not displayed.
+			if (classroomData[key].room_description == null) {
+				classroomData[key].room_description = "";
+			}
+
 			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
 			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
 			.addTo(map);
@@ -98,4 +103,9 @@ map.locate({setView: false, watch: true}) // This will return map so you can do 
 })
 .on('locationerror', function(e){
 	console.log(e);
+});
+
+// Debugging Command: prints Latitude and Longitude of mouse click. 
+map.on('click', function(e) {
+    console.log("Lat, Lon: " + e.latlng.lat + ", " + e.latlng.lng)
 });

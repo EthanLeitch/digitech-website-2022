@@ -103,6 +103,10 @@ def licensing():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # Redirect to admin panel if already logged in 
+    if session.get('logged_in'): 
+        return redirect("/admin")
+    
     if request.method == "POST":
         # Verify username by checking against config and verify password with bcrypt
         if request.form.get("username") == config["WEBAPP_USERNAME"] and hasher.verify(request.form.get("password"), config["WEBAPP_PASSWORD"]):

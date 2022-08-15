@@ -1,18 +1,20 @@
+// theme.js
+
+// Get the element based on ID
+const checkbox = document.getElementById("switch");
+let theme = localStorage.getItem('data-theme');
+
 const changeThemeToLight = () => {
     checkbox.checked = false;
-    document.documentElement.setAttribute("data-theme", "light")//set theme to light
+    document.documentElement.setAttribute("data-theme", "light") //set theme to light
     localStorage.setItem("data-theme", "light")
 }
 
 const changeThemeToDark = () => {
     checkbox.checked = true;
-    document.documentElement.setAttribute("data-theme", "dark")//set theme to dark
+    document.documentElement.setAttribute("data-theme", "dark") //set theme to dark
     localStorage.setItem("data-theme", "dark")
 }
-
-// Get the element based on ID
-const checkbox = document.getElementById("switch");
-let theme = localStorage.getItem('data-theme');
 
 // Check theme preference and set it 
 if (theme == 'light'){
