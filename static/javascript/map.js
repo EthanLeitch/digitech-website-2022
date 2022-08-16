@@ -18,6 +18,79 @@ map.addLayer(layer);
 
 var gpsMarker = null;
 
+// Set up array for marker storage
+var markers = [];
+
+// Set dropdown to hidden by default
+$(document).ready(function(){
+	$(".dropdown").hide(); 
+	
+	// Toggle dropdown visibility on focus 
+	$("#myInput").focus(function(){
+		if (!$("#myInput").val()) {
+			$(".dropdown").show();
+		}
+	});
+	/*$("#myInput").focusout(function(){
+		if (!$("#myInput").val()) {
+			$(".dropdown").hide();
+		}
+	});*/
+});
+
+// Add locations to map markers and search bar
+$.getJSON("/getpythondata", function(data) {
+	var classroomData = data.classroom;
+	
+	for (var key in classroomData) {
+		if (classroomData.hasOwnProperty(key)) {
+			/* Debugging commands
+			console.log(key + " -> " + JSON.stringify(classroomData[key]));
+			console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
+			*/
+
+			// Add locations as map markers 
+			// Set room_description to empty string so null is not displayed.
+			if (classroomData[key].room_description == null) {
+				classroomData[key].room_description = "";
+			}
+
+			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
+			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
+			.addTo(map);
+			markers.push([classroomData[key].room_name, temp]);
+
+			// Add locations to search bar list
+			// TODO: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
+			$(".dropdown").append("<li><a onclick=\"jumpToMarker(\'" + classroomData[key].room_name + "\');\">" + classroomData[key].room_name + "</a></li>");
+
+		}
+	}
+})
+
+function jumpToMarker(name) {
+	$.getJSON("/getpythondata", function(data) {
+		var classroomData = data.classroom;
+
+		for (var key in classroomData) {
+			// For every item in classroomData, check if the stored name matches the name passed to the function
+			if(classroomData[key].room_name == name) {
+				map.flyTo([classroomData[key].latitude, classroomData[key].longitude], 18);
+				
+				// Open the popup by checking if the marker name is equal to the stored name
+				for (var i in markers) {					
+					if (markers[i][0] == classroomData[key].room_name){
+						markers[i][1].openPopup();
+					};
+				}
+				
+			}
+		}
+
+	})
+}
+
+// Menubar search function
 function searchFunction() {
 	// Declare variables
 	var input, filter, ul, li, a, i, txtValue;
@@ -45,51 +118,6 @@ function searchFunction() {
 		}
 	}
 }
-
-$(document).ready(function(){
-	// Set dropdown to hidden by default
-	$(".dropdown").hide(); 
-	
-	// Toggle dropdown visibility on focus 
-	$("#myInput").focus(function(){
-		if (!$("#myInput").val()) {
-			$(".dropdown").show();
-		}
-	});
-	/*$("#myInput").focusout(function(){
-		if (!$("#myInput").val()) {
-			$(".dropdown").hide();
-		}
-	});*/
-});
-
-$.getJSON("/getpythondata", function(data) {
-	var classroomData = data.classroom;
-	
-	for (var key in classroomData) {
-		if (classroomData.hasOwnProperty(key)) {
-			/* Debugging commands
-			console.log(key + " -> " + JSON.stringify(classroomData[key]));
-			console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
-			*/
-
-			// Add locations as map markers 
-			// Set room_description to empty string so null is not displayed.
-			if (classroomData[key].room_description == null) {
-				classroomData[key].room_description = "";
-			}
-
-			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
-			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
-			.addTo(map);
-
-			// Add locations to search bar list
-			// TODO: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
-			$(".dropdown").append("<li><a onclick=\"map.flyTo([" + [classroomData[key].latitude, classroomData[key].longitude] + "], 18);\">" + classroomData[key].room_name + "</a></li>");
-
-		}
-	}
-})
 
 // Set current user location
 map.locate({setView: false, watch: true}) // This will return map so you can do chaining 

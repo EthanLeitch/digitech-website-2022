@@ -6,7 +6,6 @@ let theme = localStorage.getItem('data-theme');
 
 const changeThemeToLight = () => {
     // Toggle checkbox 
-    //checkbox.checked = false;
     checkbox.checked = false;
     // set theme in HTML body 
     document.documentElement.setAttribute("data-theme", "light")

@@ -75,8 +75,8 @@ class SecureModelView(ModelView):
         if "logged_in" in session:
             return True
         else:
-            # Return forbidden as session is not authenticated
-            abort(403)
+            # Return 401 Unauthorised as session is not authenticated
+            abort(401)
 
 # Initialise admin panel
 admin = Admin(app, name='Admin Panel', template_mode='bootstrap3')
@@ -143,6 +143,11 @@ def logout():
 def page_not_found(e):
     # Note that we set the 404 status explicitly
     return render_template('404.j2'), 404
+
+@app.errorhandler(401)
+def unauthorized(e):
+    # Do not return 401 error as it prevents redirecting
+    return redirect("/login")
 
 # Start the server with the 'run()' method
 if __name__ == '__main__':
