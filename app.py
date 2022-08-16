@@ -15,6 +15,11 @@ import secrets
 from passlib.hash import bcrypt
 from flask_wtf.csrf import CSRFProtect
 
+# Ratelimiting 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+# Setup bcrypt hasher
 hasher = bcrypt.using(rounds=14) # Make bcrypt take longer (more secure)
 
 # Load .env values
@@ -29,6 +34,14 @@ if not all(key in config.keys() for key in ("MYSQL_USERNAME", "MYSQL_PASSWORD", 
 # Create the application object
 csrf = CSRFProtect()
 app = Flask(__name__)
+
+# Enable ratelimiting
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
 csrf.init_app(app)
 
 # Generate secure key for session
@@ -102,6 +115,7 @@ def licensing():
     return render_template('licensing.j2')
 
 @app.route('/login', methods=['GET', 'POST'])
+@limiter.limit("3 per minute")
 def login():
     # Redirect to admin panel if already logged in 
     if session.get('logged_in'): 
@@ -124,6 +138,7 @@ def logout():
     session.clear()
     return redirect('/')
 
+# Error handling
 @app.errorhandler(404)
 def page_not_found(e):
     # Note that we set the 404 status explicitly

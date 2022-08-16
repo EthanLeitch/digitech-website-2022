@@ -1,3 +1,4 @@
+/* Color themes */
 :root[data-theme="dark"] {
     --bg-color: #495867;
     --foreground-color: #577399;
@@ -15,13 +16,7 @@
     --highlight-color: #FE5F55;
     --disabled-color: #ccc;
 }
-
-/* Prevent animation from playing on refresh */
-/* NOTE: Does not work for anything other than index.j2 for some reason. */
-.preload * {
-    animation-duration: 0s !important;
-    -webkit-animation-duration: 0s !important;
-}
+   
 
 body {
     background-color: var(--bg-color);
@@ -97,7 +92,7 @@ input {
 }
 
 
-
+/* Toggle switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -143,6 +138,12 @@ input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+/* Class to disable slider animation on page reload */
+.slider.round.preload:before {
+    -webkit-transition: 0s !important;
+    transition: 0s !important;
 }
 
 /* Rounded sliders */

@@ -5,14 +5,21 @@ const checkbox = document.getElementById("switch");
 let theme = localStorage.getItem('data-theme');
 
 const changeThemeToLight = () => {
+    // Toggle checkbox 
+    //checkbox.checked = false;
     checkbox.checked = false;
-    document.documentElement.setAttribute("data-theme", "light") //set theme to light
+    // set theme in HTML body 
+    document.documentElement.setAttribute("data-theme", "light")
+    // Update theme in local storage 
     localStorage.setItem("data-theme", "light")
 }
 
 const changeThemeToDark = () => {
+    // Toggle checkbox 
     checkbox.checked = true;
-    document.documentElement.setAttribute("data-theme", "dark") //set theme to dark
+    // set theme in HTML body 
+    document.documentElement.setAttribute("data-theme", "dark") 
+    // Update theme in local storage 
     localStorage.setItem("data-theme", "dark")
 }
 
@@ -31,4 +38,9 @@ checkbox.addEventListener('change', () => {
     } else {
         changeThemeToDark()
     }
+});
+
+// Remove animation preventation class once page has loaded
+$(function() {
+    $("#slider").removeClass("preload");
 });
