@@ -29,16 +29,18 @@
 {% endblock %}
 
 {% block body %}
-<input type="search" id="myInput" onkeyup="searchFunction()" placeholder="Search for classroom number or name..." data-search>
-<div>
-	<ul class="dropdown" id="myUL">
-		<!-- This list is populated by jQuery on page load -->
-	</ul>
+<!-- <h1>School Map</h1> -->
+
+<div class="dropdown">
+	<input type="search" id="myInput" onkeyup="searchFunction()" placeholder="Search for classroom number or name..." data-search>
+	<div id="myUL" class="dropdown-content">
+		<!-- This div is populated by jQuery with links on page load -->
+	</div>
 </div>
 
 <br>
 		
-<div id="map" style="width: 900px; height: 580px;"></div>
+<div id="map" style="height: 580px;"></div>
 
 <script src="{{ url_for('static', filename='javascript/map.js') }}"></script>
 {% endblock %}

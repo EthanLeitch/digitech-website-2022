@@ -18,25 +18,17 @@ map.addLayer(layer);
 
 var gpsMarker = null;
 
+var goldIcon = new L.Icon({
+	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+});
+
 // Set up array for marker storage
 var markers = [];
-
-// Set dropdown to hidden by default
-$(document).ready(function(){
-	$(".dropdown").hide(); 
-	
-	// Toggle dropdown visibility on focus 
-	$("#myInput").focus(function(){
-		if (!$("#myInput").val()) {
-			$(".dropdown").show();
-		}
-	});
-	/*$("#myInput").focusout(function(){
-		if (!$("#myInput").val()) {
-			$(".dropdown").hide();
-		}
-	});*/
-});
 
 // Add locations to map markers and search bar
 $.getJSON("/getpythondata", function(data) {
@@ -49,25 +41,27 @@ $.getJSON("/getpythondata", function(data) {
 			console.log(classroomData[key].latitude, classroomData[key].longitude, classroomData[key].room_number)
 			*/
 
-			// Add locations as map markers 
 			// Set room_description to empty string so null is not displayed.
 			if (classroomData[key].room_description == null) {
 				classroomData[key].room_description = "";
 			}
 
+			// Add location as map marker
 			temp = new L.marker([classroomData[key].latitude, classroomData[key].longitude])
 			.bindPopup("<b>" + classroomData[key].room_name + "</b><br>" + classroomData[key].room_description)
 			.addTo(map);
+			// Add location to markers array 
 			markers.push([classroomData[key].room_name, temp]);
 
-			// Add locations to search bar list
+			// Add location to search bar list
 			// TODO: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
-			$(".dropdown").append("<li><a onclick=\"jumpToMarker(\'" + classroomData[key].room_name + "\');\">" + classroomData[key].room_name + "</a></li>");
+			$("#myUL").append("<a href=\"#!\" onclick=\"jumpToMarker(\'" + classroomData[key].room_name + "\');\">" + classroomData[key].room_name + "</a>");
 
 		}
 	}
 })
 
+// Function that pans to marker and shows its corresponding popup
 function jumpToMarker(name) {
 	$.getJSON("/getpythondata", function(data) {
 		var classroomData = data.classroom;
@@ -97,24 +91,15 @@ function searchFunction() {
 	input = document.getElementById("myInput");
 	filter = input.value.toUpperCase();
 	ul = document.getElementById("myUL");
-	li = ul.getElementsByTagName("li");
-
-	/* // Only show list items once a character has been typed in
-	if(input.value.length < 2) {
-    	for (i = 0; i < li.length; i++) {
-        	li[i].style.display = "";
-		}
-        return;
-	} */ 
+	a = ul.getElementsByTagName("a");
 
 	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < li.length; i++) {
-		a = li[i].getElementsByTagName("a")[0];
-		txtValue = a.textContent || a.innerText;
+	for (i = 0; i < a.length; i++) {
+		txtValue = a[i].textContent || a[i].innerText;
 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			li[i].style.display = "";
+			a[i].style.display = "";
 		} else {
-			li[i].style.display = "none";
+			a[i].style.display = "none";
 		}
 	}
 }
@@ -122,9 +107,12 @@ function searchFunction() {
 // Set current user location
 map.locate({setView: false, watch: true}) // This will return map so you can do chaining 
 .on('locationfound', function(e){
+	// Checks if marker has been created. This is to prevent the indication marker from duplicating
+	// If the marker hasn't been created, create it.
     if(gpsMarker == null) {
-        gpsMarker = L.marker(e.latlng).bindPopup("<b>You are here</b>");
+        gpsMarker = L.marker(e.latlng, {icon: goldIcon}).bindPopup("<b>You are here</b>");
         map.addLayer(gpsMarker);
+	// If the marker has been created, update it.
     } else {
         gpsMarker.setLatLng(e.latlng);
     }
@@ -133,7 +121,7 @@ map.locate({setView: false, watch: true}) // This will return map so you can do 
 	console.log(e);
 });
 
-// Debugging Command: prints Latitude and Longitude of mouse click. 
+// Debugging command: prints Latitude and Longitude of mouse click to console. 
 map.on('click', function(e) {
     console.log("Lat, Lon: " + e.latlng.lat + ", " + e.latlng.lng)
 });

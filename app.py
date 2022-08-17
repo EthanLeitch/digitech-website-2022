@@ -115,7 +115,7 @@ def licensing():
     return render_template('licensing.j2')
 
 @app.route('/login', methods=['GET', 'POST'])
-@limiter.limit("3 per minute")
+@limiter.limit("10 per minute")
 def login():
     # Redirect to admin panel if already logged in 
     if session.get('logged_in'): 
