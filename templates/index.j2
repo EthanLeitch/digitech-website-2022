@@ -35,6 +35,7 @@
 	<input type="search" id="myInput" onkeyup="searchFunction()" placeholder="Search for classroom number or name..." data-search>
 	<div id="myUL" class="dropdown-content">
 		<!-- This div is populated by jQuery with links on page load -->
+		<a href="#!" onclick="map.flyTo(gpsMarker.getLatLng(), 18); gpsMarker.openPopup();">⌖ Current location</a>
 	</div>
 </div>
 
