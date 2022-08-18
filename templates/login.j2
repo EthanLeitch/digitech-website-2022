@@ -19,20 +19,22 @@
 {% endblock %}
 
 {% block body %}
-<h1>Admin Login</h1>
+<div class="body-text">
+	<h1>Admin Login</h1>
 
-<form autocomplete="off" method="POST">
-	<!-- Disable autocomplete on more browsers -->
-	<input autocomplete="false" name="hidden" type="text" style="display:none;">
+	<form autocomplete="off" method="POST">
+		<!-- Disable autocomplete on more browsers -->
+		<input autocomplete="false" name="hidden" type="text" style="display:none;">
 
-	<!-- CSRF Protection -->
-	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		<!-- CSRF Protection -->
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-	<input type="text" id="username" name="username" placeholder="Username" required><br>
-	<input type="password" id="password" name="password" placeholder="Password" required><br><br>
-	<input type="submit" value="Submit" id="button">
-	{% if failed == True %}
-	<p style="color: red;">Incorrect username or password!</p>
-	{% endif %}
-</form> 
+		<input type="text" id="username" name="username" placeholder="Username" required><br>
+		<input type="password" id="password" name="password" placeholder="Password" required><br><br>
+		{% if failed == True %}
+		<p id="error-text">Incorrect username or password!</p>
+		{% endif %}
+		<input type="submit" value="Submit" id="button">
+	</form> 
+</div>
 {% endblock %}

@@ -27,12 +27,14 @@
 				{% endblock %}
 
 				<li>
-					<label class="switch" class="preload">
-						<input type="checkbox" id="switch" checked>
-						<span class="slider round preload" id="slider"></span>
-						<!-- Theme toggle javascript -->
-                        <script src="{{ url_for('static', filename='javascript/theme.js') }}"></script>
-					</label>
+					<div class="switch-container">
+						<label class="switch" class="preload">
+							<input type="checkbox" id="switch" checked>
+							<span class="slider round preload" id="slider"></span>
+							<!-- Theme toggle javascript -->
+							<script src="{{ url_for('static', filename='javascript/theme.js') }}"></script>
+						</label>
+					</div>
 				</li>
 				
 				<button id="button" type="submit"><a href="/login">Sign In</a></button>
