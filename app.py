@@ -55,6 +55,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+# Check MySQL server is running by sending a select request
+db.engine.execute('SELECT 1')
+
 # Create database model
 class Classroom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -115,7 +118,7 @@ def licensing():
     return render_template('licensing.j2')
 
 @app.route('/login', methods=['GET', 'POST'])
-@limiter.limit("10 per minute")
+@limiter.limit("5 per minute")
 def login():
     # Redirect to admin panel if already logged in 
     if session.get('logged_in'): 
@@ -139,18 +142,29 @@ def logout():
     return redirect('/')
 
 # Error handling
-@app.errorhandler(404)
-def page_not_found(e):
-    # Note that we set the 404 status explicitly
-    return render_template('404.j2'), 404
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template("errors/400.j2"), 400
 
 @app.errorhandler(401)
 def unauthorized(e):
     # Do not return 401 error as it prevents redirecting
     return redirect("/login")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("errors/404.j2"), 404
+
+@app.errorhandler(429)
+def too_many_requests(e):
+    return render_template("errors/429.j2"), 429
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template("errors/500.j2"), 500
+
 # Start the server with the 'run()' method
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
     
 

@@ -1,6 +1,6 @@
 {% extends 'base.j2' %}
 
-{% block title %}404{% endblock %}
+{% block title %}500{% endblock %}
 
 {% block navbar %}
 <li>
@@ -20,7 +20,8 @@
 
 {% block body %}
 <div class="body-text">
-	<h1>404 - Page not found</h1>
+	<h1>500 - Internal Server Error</h1>
+	<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
 	<h3><a href="/">Back to home</a></h3>
 </div>
 {% endblock %}

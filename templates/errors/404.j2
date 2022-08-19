@@ -1,0 +1,27 @@
+{% extends 'base.j2' %}
+
+{% block title %}404{% endblock %}
+
+{% block navbar %}
+<li>
+	<a class="underline" href="/">Map</a>
+</li>
+<li>
+	<a class="underline" href="guide.html">Guide</a>
+</li>
+
+<li>
+	<a class="underline" href="about.html">About</a>
+</li>
+<li>
+	<a class="underline" href="licensing.html">Licensing</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="body-text">
+	<h1>404 - Not Found</h1>
+	<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+	<h3><a href="/">Back to home</a></h3>
+</div>
+{% endblock %}
