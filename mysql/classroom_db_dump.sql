@@ -29,7 +29,7 @@ CREATE TABLE `classroom` (
   `latitude` decimal(8,6) NOT NULL,
   `longitude` decimal(9,6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `classroom` (
 
 LOCK TABLES `classroom` WRITE;
 /*!40000 ALTER TABLE `classroom` DISABLE KEYS */;
-INSERT INTO `classroom` VALUES (1,'Red House','Example description, HTML <i>formatting</i> is supported.',-45.855180,170.499000),(2,'Blue House',NULL,-45.855120,170.498008),(3,'Green House',NULL,-45.855680,170.498008);
+INSERT INTO `classroom` VALUES (5,'ELC','The Edgar Learning Centre and Library.',-45.854863,170.498698),(6,'Tennis Courts',NULL,-45.854593,170.498237),(7,'Chapel ','The school chapel was officially opened in 1960.',-45.855246,170.498210),(8,'Canteen','The canteen is a reasonably priced option for lunch. There are daily specials, and a variety of hot and cold, and healthy foods. ',-45.855136,170.497996),(9,'The Link',' In 2017 the Link was opened, a flexible learning environment for Year 7 students. ',-45.855463,170.498103),(10,'Reception ',NULL,-45.855571,170.498124);
 /*!40000 ALTER TABLE `classroom` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-10 16:41:11
+-- Dump completed on 2022-08-20 11:49:01
