@@ -5,13 +5,14 @@ An interactive map of John McGlashan College, made for NCEA Web Design and Devel
 # Setup 
 ## Setting up MySQL 
 1. Download and install [MySQL Community Server](https://dev.mysql.com/downloads/mysql/).
-2. Log in to MySQL (`mysql -u root -p` or `sudo mysql`, depending on your system).
-3. Set up a user with the neccessary permissions. This user will be used by the webapp to connect to the database.
+2. Launch the server. 
+3. Log in to MySQL (`mysql -u root -p` or `sudo mysql`, depending on your system).
+4. Set up a user with the neccessary permissions. This user will be used by the webapp to connect to the database.
 ```sql
 CREATE USER 'joebloggs'@'localhost' IDENTIFIED BY 'password';
 GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'joebloggs'@'localhost' WITH GRANT OPTION;
 ```
-4. Load the example database. 
+5. Load the example database. 
 ```sql
 CREATE DATABASE classroom_db;
 ```

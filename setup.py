@@ -9,7 +9,8 @@ config = dotenv_values(".env")
 # Read value from dotenv file
 # print(config["KEY"])
 
-hasher = bcrypt.using(rounds=14) # Change default round number to be longer (more secure)
+hasher = bcrypt.using(rounds=14)  # Change default round number to be longer (more secure)
+
 
 def main():
     print("Welcome to the setup program for the digitech-website-2022 app.")
@@ -20,7 +21,7 @@ def main():
     4. Quit""")
     choice = input(" > ")
 
-    # TODO: This looks bad, but it works. Maybe clean this up eventually.
+    # TODO: This looks bad, but it works. Maybe clean this up if more menu options are necessary.
     if choice == "4":
         exit()
 
