@@ -39,7 +39,7 @@ checkbox.addEventListener('change', () => {
     }
 });
 
-// Remove animation preventation class once page has loaded
+// Remove the theme slider's animation preventation class once page has loaded
 $(function() {
     $("#slider").removeClass("preload");
 });

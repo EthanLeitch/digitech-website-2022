@@ -2,15 +2,19 @@
 
 // Creating map options
 var mapOptions = {
-center: [-45.85518, 170.49800], 
-zoom: 18
+	center: [-45.85518, 170.49800], 
+	zoom: 18
 }
 
 // Creating a map object
 var map = new L.map('map', mapOptions);
 
 // Creating a Layer object
-var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	minZoom: 0,
+	maxZoom: 22,
+	maxNativeZoom: 18
+});
 // COPYRIGHT: https://www.openstreetmap.org/copyright
 
 // Add the layer to the map
@@ -54,8 +58,8 @@ $.getJSON("/getpythondata", function(data) {
 			markers.push([classroomData[key].room_name, temp]);
 
 			// Add location to search bar list
-			// TODO: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
-			$("#myUL").append("<a href=\"#!\" onclick=\"jumpToMarker(\'" + classroomData[key].room_name + "\');\">" + classroomData[key].room_name + "</a>");
+			// NOTE: This could use tweaking. Embedding JS in onclick events like this is generally not reccomended.
+			$("#myUL").append("<a href=\"#myInput\" onclick=\"jumpToMarker(\'" + classroomData[key].room_name + "\');\">" + classroomData[key].room_name + "</a>");
 
 		}
 	}
