@@ -169,28 +169,28 @@ def logout():
 
 # Error handling
 @app.errorhandler(400)
-def bad_request():
+def bad_request(e):
     return render_template('errors/400.j2'), 400
 
 
 @app.errorhandler(401)
-def unauthorized():
+def unauthorized(e):
     # Do not return 401 error as it prevents redirecting
     return redirect('/login')
 
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('errors/404.j2'), 404
 
 
 @app.errorhandler(429)
-def too_many_requests():
+def too_many_requests(e):
     return render_template('errors/429.j2'), 429
 
 
 @app.errorhandler(500)
-def server_error():
+def server_error(e):
     return render_template('errors/500.j2'), 500
 
 
