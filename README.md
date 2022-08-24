@@ -32,6 +32,7 @@ The source code of this project (excluding external packages and software) is li
 ### External software used
 - [OpenStreetMap](https://www.openstreetmap.org/copyright)
 - [jQuery](https://jquery.org/license/)
+- [normalize.css](https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
 - [leaflet-color-markers](https://github.com/pointhi/leaflet-color-markers/blob/master/LICENSE)
 
 ### External packages used 

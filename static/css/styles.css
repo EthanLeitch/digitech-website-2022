@@ -25,16 +25,22 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 14px;
+    margin: 8px;
 }
 
 .body-text {
     margin-left: 16px;
     margin-top: -2px;
-    
 }
 
 .body-text p {
     line-height: 100%;
+    font-size: 16px;
+}
+
+.body-text a {
+    font-size: 16px;
 }
 
 .body-text h1 {
