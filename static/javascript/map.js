@@ -6,15 +6,26 @@ var mapOptions = {
 	zoom: 18
 }
 
-// Creating a map object
+// Creating tilelayer options
+var layerOptions = {
+	minZoom: 17,
+	maxZoom: 19,
+	maxNativeZoom: 18
+}
+
+// Create map bounds to reduce load on tile servers
+var southWest = L.latLng(-45.8600, 170.4923),
+	northEast = L.latLng(-45.8491, 170.5058),
+	bounds = L.latLngBounds(southWest, northEast);
+
+// Creating the map object
 var map = new L.map('map', mapOptions);
 
+// Set map max bounds  
+map.setMaxBounds(bounds);
+
 // Creating a Layer object
-var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	minZoom: 0,
-	maxZoom: 22,
-	maxNativeZoom: 18
-});
+var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions);
 // COPYRIGHT: https://www.openstreetmap.org/copyright
 
 // Add the layer to the map
