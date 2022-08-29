@@ -3,12 +3,15 @@ An interactive map of John McGlashan College, made for NCEA Web Design and Devel
 
 # Features
 *Fully functional search bar with clickable markers*
+
 ![Searchbar](https://i.ibb.co/VLkY3WX/menu-bar.png)
 
 *Backend access with Flask-Admin*
+
 ![Flask admin panel](https://i.ibb.co/FVVVPS5/admin-panel.png)
 
 *Dark and light mode*
+
 ![Dark and light themes](https://i.ibb.co/BTgJ1Dr/themes.png)
 
 # Setup 
