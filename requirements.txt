@@ -24,7 +24,7 @@ mysql-connector-python==8.0.29
 mysqlclient==2.1.1
 packaging==21.3
 passlib==1.7.4
-protobuf==4.21.2
+protobuf==4.21.6
 pycparser==2.21
 Pygments==2.12.0
 pyparsing==3.0.9
